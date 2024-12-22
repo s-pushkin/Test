@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'   # Устанавливаем JDK 11
-          distribution: 'adoptium'   # Указываем новый дистрибутив Adoptium
+          distribution: 'zulu'   # Используем Zulu OpenJDK (поддерживаемая версия)
 
       - name: Set up Gradle
         uses: gradle/wrapper-validation-action@v1  # Используем Gradle Wrapper для проекта
