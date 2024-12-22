@@ -19,21 +19,21 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'   # Устанавливаем JDK 11
+          distribution: 'adoptopenjdk'   # Указываем дистрибутив JDK (AdoptOpenJDK)
 
-      - name: Install Gradle
-        run: |
-          wget https://services.gradle.org/distributions/gradle-7.6-bin.zip -P /tmp
-          unzip /tmp/gradle-7.6-bin.zip -d /opt
-          sudo ln -s /opt/gradle-7.6/bin/gradle /usr/bin/gradle
+      - name: Set up Gradle
+        uses: gradle/wrapper-validation-action@v1  # Используем Gradle Wrapper для проекта
+        with:
+          gradle-version: '7.6'   # Указываем версию Gradle
 
       - name: Build with Gradle
-        run: gradle clean build   # Сборка проекта
+        run: ./gradlew clean build   # Сборка проекта с помощью Gradle Wrapper
 
       - name: Run tests
-        run: gradle test    # Запуск тестов
+        run: ./gradlew test    # Запуск тестов
 
       - name: Generate Allure Report
-        run: gradle allureReport   # Генерация отчета Allure
+        run: ./gradlew allureReport   # Генерация отчета Allure
 
       - name: Upload Allure Report as artifact
         uses: actions/upload-artifact@v3
